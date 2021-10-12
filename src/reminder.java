@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /*
@@ -26,16 +27,37 @@ public class reminder {
         return new Scanner(System.in);
     }
 
+    public static ArrayList<String> tage(String day1, String day2){
+        int i = Integer.parseInt(day1);
+        ArrayList day = new ArrayList<String>();
+        if (Integer.parseInt(day2) < Integer.parseInt(day1)){
+
+        }
+        else {
+            while (i != Integer.parseInt(day2)){
+                System.out.println(i);
+                day.add(String.valueOf(i));
+                i+=1;
+            }
+            day.add(day2);
+        }
+
+        return day;
+    }
+
     public static String zeile1() {
         return "\"Hallo zusammen hier die Wöchentliche Eintragungsliste: \"";
 
     }
 
     public static String körper(String Eingabe1, String Eingabe2){
+        ArrayList<String> b;
 
-        String[] result = Eingabe1.split("/") ;
-        System.out.println( result[0]);
-        System.out.println(Eingabe1);
+        String[] day1 = Eingabe1.split("/") ;
+        String[] day7 = Eingabe2.split("/");
+        b = tage(day1[0],day7[0]);
+
+
         return "null";
 
 
