@@ -1,6 +1,7 @@
 import java.util.Scanner;
 
 public class hello {
+    // Die Namen erklären nicht wirklich wofür die Variablen genutzt werden
     static boolean run;
     static boolean run2;
     static boolean it;
@@ -16,29 +17,25 @@ public class hello {
     public static void setRun2(boolean run2) {
         hello.run2 = run2;
     }
+    
+    public static void setAllRunners(boolean running) {
+        setIt(running); setRun(running), SetRun2(running);
+    }
 
     public static double add(double a, double b) {
-        double back;
-        back = a + b;
-        return back;
+        return (double) a + b;
     }
 
     public static double sub(double a, double b) {
-        double back;
-        back = a - b;
-        return back;
+        return (double) a - b;
     }
 
     public static double multi(double a, double b) {
-        double back;
-        back = a * b;
-        return back;
+        return (double) a * b;
     }
 
     public static double div(double a, double b) {
-        double back;
-        back = a / b;
-        return back;
+        return (double) a / b;
     }
 
     public static Scanner scan() {
@@ -52,64 +49,57 @@ public class hello {
         String eingabe2 = scan().next();
         System.out.println("Rechenart Eingeben");
         String eingabe3 = scan().next();
+        /*Wenn der Taschenrechner die Ausgabe nicht weiter braucht sonder lediglich in der Konsole anzeigt
+        dann benötigen wir auch keine extra variable (spart Speicher, weniger Code, kompakter, schlechter lesbar)*/
         switch (eingabe3) {
             case "+" -> {
-                double ergebnis = add((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
-                System.out.println("Ergebnis ist: " + ergebnis);
+                System.out.println("Ergebnis ist: " + add((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
             }
             case "-" -> {
-                double ergebnis = sub((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
-                System.out.println("Ergebnis ist: " + ergebnis);
+                System.out.println("Ergebnis ist: " + sub((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
             }
             case "*" -> {
-                double ergebnis = multi((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
-                System.out.println("Ergebnis ist: " + ergebnis);
+                System.out.println("Ergebnis ist: " + multi((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
             }
             case "/" -> {
-                double ergebnis = div((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
-                System.out.println("Ergebnis ist: " + ergebnis);
-
+                System.out.println("Ergebnis ist: " + div((Double.parseDouble(eingabe1)), (Double.parseDouble(eingabe2)));
             }
             default -> System.out.println("Falsche eingabe");
         }
-        System.out.println("Weiter 1 ende 0");
-        String eingabe4 = scan().next();
-        run2 = !eingabe4.equals("0");
+        System.out.println("Drücken Sie 1 um weiterzumachen \n Drücken Sie 0 um zu beenden");
+        // Hier hast du ja extra eine Methode dafür gemacht um run2 zu setzen. Also verwende einfach die :)
+        setRun2(!scan().next().equals("0"));
     }
 
     public static void schleife() {
+        /*Bisher ist es so das it immer true ist wenn run true ist. Daher kann man die beiden zusammenfassen wenn weiterer Code nicht
+        die Bedeutung der beiden Variablen verändert (Daher ist die Bennenung recht wichtig)*/
         while (it) {
             while (run) {
-                System.out.println("Bitte Modus Wählen!");
-                System.out.println("0: Beenden");
-                System.out.println("1: Taschenrechner");
-                System.out.println("2: WIP ");
+                System.out.println("Bitte Modus Wählen! \n0: Beenden \n1: Taschenrechner \n2: WIP");
                 String eingabe = scan().next();
                 switch (eingabe) {
+                    case "0" -> {
+                        System.out.println("Servus Auf Wiedersehen");
+                        setAllRunners(false);
+                    }
                     case "1" -> {
                         while (run2) {
                             hello.rechner();
                         }
-                    }
-                    case "0" -> {
-                        System.out.println("Servus Auf Wiedersehen");
-                        setIt(false);
-                        setRun(false);
-                        setRun2(false);
                     }
                     case "2" -> {
                         // TODO: Zu ergänzende weitere Funktion
                     }
                 }
             }
+            // Der Aufruf von der Methode schleife() sollte eigentlich egal sein weil du das lauf der Methode bereits über while-Schleifen garantierst.
             schleife();
         }
     }
 
     public static void main(String... args) {
-        run = true;
-        run2 = true;
-        it = true;
+        setAllRunners(true);
         hello.schleife();
     }
 }
